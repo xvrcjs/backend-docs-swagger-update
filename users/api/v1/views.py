@@ -18,6 +18,8 @@ from administration.models import Client
 from django.http import HttpResponseBadRequest, JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 from django.contrib.auth.password_validation import validate_password
 from django.db.models import Q
 from django.db.models import BooleanField, Case, Exists, ExpressionWrapper, F, OuterRef, Q, Value, When
@@ -59,6 +61,26 @@ def logout_response(status=401, console_message='Logged out successfully', error
     return delete_cookies(response)
 
 # LOGIN
+@swagger_auto_schema(
+    method='post',
+    operation_summary="User Login",
+    request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        required=['email', 'password'],
+        properties={
+            'email': openapi.Schema(type=openapi.TYPE_STRING, format='email'),
+            'password': openapi.Schema(type=openapi.TYPE_STRING, format='password'),
+            'remember_me': openapi.Schema(type=openapi.TYPE_BOOLEAN, default=False),
+        },
+    ),
+    responses={
+        200: "Login successful",
+        400: "Bad request",
+        401: "Unauthorized",
+    },
+    tags=["Authentication"],
+)
+@api_view(['POST'])
 @csrf_exempt
 def login(request):
     # Check method
