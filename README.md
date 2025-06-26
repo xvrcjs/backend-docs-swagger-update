@@ -53,6 +53,9 @@ $ docker-compose up
 $ docker compose up
 ```
 
+Una vez levantado el servicio web, puedes consultar la documentación de la API
+en `http://localhost:8000/swagger/`.
+
 ### Cómo comunicarse con el contenedor
 
 Solo envía lo que necesitas usando:

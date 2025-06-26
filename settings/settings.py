@@ -318,6 +318,8 @@ LOGGING = {
 }
 
 SWAGGER_SETTINGS = {
+    "DEFAULT_INFO": "settings.urls.schema_view",
+    "USE_SESSION_AUTH": False,
     "LOGIN_URL": "{}/admin/login".format(API_URL),
     "LOGOUT_URL": "{}/admin/logout".format(API_URL),
     "SECURITY_DEFINITIONS": {
